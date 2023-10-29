@@ -5,6 +5,7 @@ Subproject: R&D
 2023. All Rights Reserved
 */
 
+
 package main
 
 import (
@@ -157,7 +158,7 @@ func main() {
 		return c.JSON(block)
 	})
 
-	app.Get("/blocks/check-integrity", func(c *fiber.Ctx) error {
+	app.Get("/check-integrity", func(c *fiber.Ctx) error {
 		blocks := getBlocksFromDB(db)
 		for i := 1; i < len(blocks); i++ {
 			prevBlock := blocks[i-1]
@@ -166,7 +167,7 @@ func main() {
 				return c.SendStatus(fiber.StatusBadRequest)
 			}
 		}
-		return c.SendString("Blockchain integrity is intact")
+		return c.SendString("Целостность блокчейна не нарушена")
 	})
 
 	log.Fatal(app.Listen(":3000"))
