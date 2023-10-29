@@ -24,6 +24,12 @@ go run .
 ./build/go_build_blockchain
 ```
 
+Для сборки приложения с помощью docker compose
+
+```shell
+docker-compose up
+```
+
 GoChain будет запущен по адресу: http://127.0.0.1:3000 с помощью Fiber
 
 Далее, необходимо передать данные в БД, чтобы сохранить их в блокчейн.

@@ -11,6 +11,7 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/hex"
+	"fmt"
 	"log"
 	"time"
 
@@ -65,7 +66,7 @@ func createBlock(c *fiber.Ctx, db *sql.DB) error {
 }
 
 func calculateHash(b Block) string {
-	record := string(b.Index) + b.Timestamp + b.Data + b.PrevHash
+	record := fmt.Sprintf("%d%s%s%s", b.Index, b.Timestamp, b.Data, b.PrevHash)
 	h := sha256.New()
 	h.Write([]byte(record))
 	hashed := h.Sum(nil)
@@ -150,6 +151,18 @@ func main() {
 			return c.SendStatus(err.(*fiber.Error).Code)
 		}
 		return c.JSON(block)
+	})
+
+	app.Get("/blocks/check-integrity", func(c *fiber.Ctx) error {
+		blocks := getBlocksFromDB(db)
+		for i := 1; i < len(blocks); i++ {
+			prevBlock := blocks[i-1]
+			currBlock := blocks[i]
+			if currBlock.PrevHash != prevBlock.Hash {
+				return c.SendStatus(fiber.StatusBadRequest)
+			}
+		}
+		return c.SendString("Blockchain integrity is intact")
 	})
 
 	log.Fatal(app.Listen(":3000"))
