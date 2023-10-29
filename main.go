@@ -115,7 +115,11 @@ func getBlockByHashFromDB(db *sql.DB, hash string) (Block, error) {
 }
 
 func main() {
-	db, err := sql.Open("sqlite3", "blocks.db")
+	// Для анонимного подключения к БД, используйте эту строку
+	//db, err := sql.Open("sqlite3", "blocks.db")
+
+	// Для подключения к БД с логином и паролем используйте эту строку
+	db, err := sql.Open("sqlite3", "blocks.db?_auth&_auth_user=dbu_gochain&_auth_pass=any123_password&here!")
 	if err != nil {
 		log.Fatal(err)
 	}
