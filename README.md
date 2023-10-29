@@ -37,18 +37,18 @@ GoChain будет запущен по адресу: http://127.0.0.1:3000 с п
 
 Далее, необходимо передать данные в БД, чтобы сохранить их в блокчейн.
 
-Обязательными параметрами являются: 
+Обязательными параметрами являются:
 1. server_key = EDLJDhHD9mzbloENzA9pjdteAhgE4VdClUWR2SPP7tfkkQFHb9APBW4STOTTlM7S
 2. data = JSON-объект со следующей структурой:
 ```json
    {
-       "method": "add",
-       "filename": "filename.mp4",
-       "encrypted": 1,
-       "key": "123123123123",
-       "username": "anyuser",
-       "url": "https://any.domain.ru/tmp/filename.mp4"
-   }
+   "method": "add",
+   "filename": "filename.mp4",
+   "encrypted": 1,
+   "key": "123123123123",
+   "username": "anyuser",
+   "url": "https://any.domain.ru/tmp/filename.mp4"
+}
 ```
 В этом ключе может быть любой объем данных. Именно из него высчитывается hash.
 
